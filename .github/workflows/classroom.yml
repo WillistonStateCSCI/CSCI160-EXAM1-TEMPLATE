@@ -247,17 +247,59 @@ jobs:
         comparison-method: contains
         timeout: 10
         max-score: 2
-    - name: Q4 Test
-      id: q4-test
+    - name: Q4 Test 2
+      id: q4-test-2
       uses: classroom-resources/autograding-io-grader@v1
       with:
-        test-name: Q4 Test
+        test-name: Q4 Test 2
         setup-command: javac Q4/SumOfIntegers
         command: java -cp Q4 SumOfIntegers
         input: |-
           -10
           -5
         expected-output: The sum of the integers from -10 to -5 is -45
+        comparison-method: contains
+        timeout: 10
+        max-score: 2
+    - name: Q4 Test 3
+      id: q4-test-3
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Q4 Test 3
+        setup-command: javac Q4/SumOfIntegers.java
+        command: java -cp Q4 SumOfIntegers
+        input: |-
+          0
+          100
+        expected-output: The sum of the integers from 0 to 100 is 5050
+        comparison-method: contains
+        timeout: 10
+        max-score: 2
+    - name: Q4 Test 4
+      id: q4-test-4
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Q4 Test 4
+        setup-command: javac Q4/SumOfIntegers.java
+        command: java -cp Q4 SumOfIntegers
+        input: |-
+          100
+          0
+        expected-output: The sum of the integers from 0 to 100 is 5050
+        comparison-method: contains
+        timeout: 10
+        max-score: 2
+    - name: Q4 Test 5
+      id: q4-test-5
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Q4 Test 5
+        setup-command: javac Q4/SumOfIntegers.java
+        command: java -cp Q4 SumOfIntegers
+        input: |-
+          -200
+          200
+        expected-output: The sum of the integers from -200 to 200 is 0
         comparison-method: contains
         timeout: 10
         max-score: 2
@@ -280,6 +322,9 @@ jobs:
         Q3-TEST-4_RESULTS: "${{steps.q3-test-4.outputs.result}}"
         Q3-TEST-5_RESULTS: "${{steps.q3-test-5.outputs.result}}"
         Q4-TEST-1_RESULTS: "${{steps.q4-test-1.outputs.result}}"
-        Q4-TEST_RESULTS: "${{steps.q4-test.outputs.result}}"
+        Q4-TEST-2_RESULTS: "${{steps.q4-test-2.outputs.result}}"
+        Q4-TEST-3_RESULTS: "${{steps.q4-test-3.outputs.result}}"
+        Q4-TEST-4_RESULTS: "${{steps.q4-test-4.outputs.result}}"
+        Q4-TEST-5_RESULTS: "${{steps.q4-test-5.outputs.result}}"
       with:
-        runners: q1-test-1,q1-test-2,q1-test-3,q1-test-4,q1-test-5,q2-test-1,q2-test-2,q2-test-3,q2-test-4,q2-test-5,q3-test-1,q3-test-2,q3-test-3,q3-test-4,q3-test-5,q4-test-1,q4-test
+        runners: q1-test-1,q1-test-2,q1-test-3,q1-test-4,q1-test-5,q2-test-1,q2-test-2,q2-test-3,q2-test-4,q2-test-5,q3-test-1,q3-test-2,q3-test-3,q3-test-4,q3-test-5,q4-test-1,q4-test-2,q4-test-3,q4-test-4,q4-test-5
