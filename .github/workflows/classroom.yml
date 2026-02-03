@@ -1,0 +1,100 @@
+name: Autograding Tests
+'on':
+- push
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Q1 Test 1
+      id: q1-test-1
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Q1 Test 1
+        setup-command: javac Q1/UpperLowerCases.java
+        command: java -cp Q1 UpperLowerCases
+        input: smile
+        expected-output: |-
+          The word in uppercase letters is SMILE
+          The word in lowercase letters is smile
+          The original word is smile
+        comparison-method: contains
+        timeout: 10
+        max-score: 2
+    - name: Q1 Test 2
+      id: q1-test-2
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Q1 Test 2
+        setup-command: javac Q1/UpperLowerCases.java
+        command: java -cp Q1 UpperLowerCases
+        input: SHOUT
+        expected-output: |-
+          The word in uppercase letters is SHOUT
+          The word in lowercase letters is shout
+          The original word is SHOUT
+        comparison-method: contains
+        timeout: 10
+        max-score: 2
+    - name: Q1 Test 3
+      id: q1-test-3
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Q1 Test 3
+        setup-command: javac Q1/UpperLowerCases.java
+        command: java -cp Q1 UpperLowerCases
+        input: WoBbLe
+        expected-output: |-
+          The word in uppercase letters is WOBBLE
+          The word in lowercase letters is wobble
+          The original word is WoBbLe
+        comparison-method: contains
+        timeout: 10
+        max-score: 2
+    - name: Q1 Test 4
+      id: q1-test-4
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Q1 Test 4
+        setup-command: javac Q1/UpperLowerCases.java
+        command: java -cp Q1 UpperLowerCases
+        input: SO many WoRdS!
+        expected-output: |-
+          The word in uppercase letters is SO
+          The word in lowercase letters is so
+          The original word is SO
+        comparison-method: contains
+        timeout: 10
+        max-score: 2
+    - name: Q1 Test 5
+      id: q1-test-5
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Q1 Test 5
+        setup-command: javac Q1/UpperLowerCases.java
+        command: java -cp Q1 UpperLowerCases
+        input: 256 is a number that should not crash my program
+        expected-output: |-
+          The word in uppercase letters is 256
+          The word in lowercase letters is 256
+          The original word is 256
+        comparison-method: contains
+        timeout: 10
+        max-score: 2
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        Q1-TEST-1_RESULTS: "${{steps.q1-test-1.outputs.result}}"
+        Q1-TEST-2_RESULTS: "${{steps.q1-test-2.outputs.result}}"
+        Q1-TEST-3_RESULTS: "${{steps.q1-test-3.outputs.result}}"
+        Q1-TEST-4_RESULTS: "${{steps.q1-test-4.outputs.result}}"
+        Q1-TEST-5_RESULTS: "${{steps.q1-test-5.outputs.result}}"
+      with:
+        runners: q1-test-1,q1-test-2,q1-test-3,q1-test-4,q1-test-5
